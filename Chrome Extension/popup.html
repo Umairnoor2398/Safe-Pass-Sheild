@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Alert Extension</title>
+    <style>
+      body {
+        width: 300px;
+        margin: 50px auto;
+        padding: 5px;
+        font-family: Arial, sans-serif;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .input-group {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .form-control {
+        flex: 1;
+        border: none;
+        padding: 10px;
+      }
+      .input-group-append {
+        background-color: #007bff;
+      }
+      .btn {
+        border: none;
+        padding: 10px 20px;
+        color: white;
+        background-color: #007bff;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Enter your Key</h2>
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="safePassKey"
+          placeholder="Enter value"
+        />
+        <div class="input-group-append">
+          <button class="btn" type="submit" id="safePassButton">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

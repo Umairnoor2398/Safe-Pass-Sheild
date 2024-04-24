@@ -1,0 +1,65 @@
+name: Flutter CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "stable"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Determine release version
+        id: get_version
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            MESSAGE=$(git log --format=%B -n 1 ${{ github.event.pull_request.base.sha }})
+          else
+            MESSAGE=$(git log --format=%B -n 1 ${{ github.event.after }})
+          fi
+          RELEASE_VERSION=$(echo $MESSAGE | grep -o 'v[0-9]*\.[0-9]*\.[0-9]*')
+          if [[ ! -z "$RELEASE_VERSION" ]]; then
+            echo "RELEASE_VERSION=${RELEASE_VERSION}" >> $GITHUB_ENV
+          else
+            echo "No release version found in commit or merge message."
+            exit 1
+          fi
+
+      - name: Check merge commit message or direct commit
+        id: check_commit_message
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            MESSAGE=$(git log --format=%B -n 1 ${{ github.event.pull_request.base.sha }})
+          else
+            MESSAGE=$(git log --format=%B -n 1 ${{ github.event.after }})
+          fi
+          if [[ $MESSAGE == *"release"* && $MESSAGE == *"complete"* ]]; then
+            echo "RELEASE_TRIGGERED=true" >> $GITHUB_ENV
+          fi
+
+      - name: Build Android APK and App Bundle
+        if: env.RELEASE_TRIGGERED == 'true'
+        run: |
+          flutter build apk --release
+          flutter build appbundle --release
+          mv build/app/outputs/bundle/release/app.aab build/app/outputs/bundle/release/app-${{ env.RELEASE_VERSION }}.aab
+          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/app-${{ env.RELEASE_VERSION }}.apk
+
+      - name: Build and deploy iOS release
+        if: env.RELEASE_TRIGGERED == 'true'
+        run: flutter build ios --release --no-codesign # iOS release builds require additional setup for code signing

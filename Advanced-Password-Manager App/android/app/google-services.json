@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "438781899306",
+    "project_id": "advanced-password-manger",
+    "storage_bucket": "advanced-password-manger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438781899306:android:ff66eb17b3aee07110c953",
+        "android_client_info": {
+          "package_name": "com.thedbdevs.safe_pass_sheild"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-Jj9WjcviS5eRgo7qvRP5h-D9WGxBatw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
