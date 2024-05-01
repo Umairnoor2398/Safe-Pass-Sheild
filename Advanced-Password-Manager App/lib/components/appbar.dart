@@ -82,7 +82,7 @@ class MyAppBar extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        'Click the icon to copy the salt and add to our chrome extension',
+                        'Click the icon to copy the key and add to our chrome extension',
                         softWrap: true,
                         style: TextStyle(color: Colors.white),
                       ),
