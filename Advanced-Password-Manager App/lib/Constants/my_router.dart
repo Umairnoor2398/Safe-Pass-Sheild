@@ -1,9 +1,11 @@
 import 'package:go_router/go_router.dart';
+import 'package:safe_pass_sheild/authenticator/components/home/home.dart';
 import 'package:safe_pass_sheild/screens/Authentication/login.dart';
 import 'package:safe_pass_sheild/screens/Authentication/otp.dart';
 import 'package:safe_pass_sheild/screens/Authentication/pinCode.dart';
 import 'package:safe_pass_sheild/screens/Authentication/reset_password.dart';
 import 'package:safe_pass_sheild/screens/Authentication/signup.dart';
+import 'package:safe_pass_sheild/screens/home/authenticator.dart';
 import 'package:safe_pass_sheild/screens/home/create_password_screen.dart';
 import 'package:safe_pass_sheild/screens/home/home_screen.dart';
 import 'package:safe_pass_sheild/screens/home/password_screen.dart';
@@ -70,6 +72,11 @@ class MyRouter {
         builder: (context, state) => CreatePasswordScreen(),
       ),
       GoRoute(
+        path: '/authenticator',
+        name: 'authenticator',
+        builder: (context, state) => Home(),
+      ),
+      GoRoute(
         path: '/pinCode/:type',
         name: 'pinCode',
         builder: (context, state) {
@@ -103,7 +110,8 @@ enum MyScreens {
   resetPassword,
   pinCode,
   password,
-  createPasswordScreen
+  createPasswordScreen,
+  authenticator,
 }
 
 

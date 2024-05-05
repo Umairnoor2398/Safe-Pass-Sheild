@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safe_pass_sheild/Constants/my_router.dart';
 import 'package:safe_pass_sheild/components/appbar.dart';
+import 'package:safe_pass_sheild/components/bottomnavigationbar.dart';
 import 'package:safe_pass_sheild/controllers/account_controller.dart';
 import 'package:safe_pass_sheild/controllers/firestore_controller.dart';
 import 'package:safe_pass_sheild/screens/home/create_password_screen.dart';
@@ -120,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 40,
                 ),
               ),
+              bottomNavigationBar: MyBottomNavBar(selectedIndex: 0),
             ),
           );
   }

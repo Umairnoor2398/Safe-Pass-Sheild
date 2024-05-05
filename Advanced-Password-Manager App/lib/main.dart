@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:safe_pass_sheild/Constants/my_router.dart';
+import 'package:safe_pass_sheild/authenticator/components/auth/auth.dart';
 import 'package:safe_pass_sheild/controllers/account_controller.dart';
 import 'package:safe_pass_sheild/firebase_options.dart';
 
@@ -20,15 +21,12 @@ Future<void> main() async {
     await AccountController.deleteUser();
   }
 
-  // await UserModel.GetUserFromSharedPrefs().then((value) async {
-  //   await AccountController.login(value, NeedsToast: false).then((value) {
-  //     if (value != null) {
-  //       //print('User Logged In Successfully');
-  //     } else {
-  //       AccountController.signOut();
-  //     }
-  //   });
-  // });
+  var user = FirebaseAuth.instance.currentUser;
+
+  if (user != null) {
+    AuthenticatorClass().createOrLoginAuthenticator(AuthType.register);
+    AuthenticatorClass().createOrLoginAuthenticator(AuthType.login);
+  }
 
   runApp(const AuthenticationListener());
 }
